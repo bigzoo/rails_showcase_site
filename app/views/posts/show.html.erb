@@ -1,0 +1,24 @@
+<h1><%= @post.description%></h1>
+Rating = <%= @post.rating%>
+Views = <%= @post.views%>
+<img src="<%= @post.image%>" alt="">
+<% if @post.comments.any?%>
+<ul>
+<h4>Comments</h4>
+<% @post.comments.each do |comment| %>
+<li>
+  <%=comment.description%> | by <%= link_to comment.user.username, user_path(comment.user)%>
+<% end %>
+</ul>
+<% else %>
+<h3>This Post has no comments yet!</h3>
+<small>Post One Now!</small>
+<% end %>
+<p><%= link_to 'New Comment', new_post_comment_path(@post)%></p>
+
+<hr>
+<p><%= link_to 'Edit Post', edit_post_path(@post)%></p>
+<p><%= link_to 'Delete Post', post_path(@post),
+                          :data => {:confirm => "Are you sure?",
+                                         :method => "delete"}
+                                         %></p>
