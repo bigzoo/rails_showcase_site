@@ -1,0 +1,19 @@
+<h1>Behance</h1>
+<% if @posts.any? %>
+<ul>
+  <% @posts.each do |post|%>
+  <li>
+   <%= link_to post.title, post_path(post) %> |
+   by <%= link_to post.user.username, user_path(post.user) %> |
+   Rating = <%= post.rating%> |
+   Views = <%= post.views%> |
+  </li>
+<% end %>
+</ul>
+<%else%>
+<h1>No posts yet</h1>
+<%end%>
+
+<hr>
+<p><%= link_to "New Post", new_post_path%></p>
+<p><%= link_to "New User", new_user_path%></p>
