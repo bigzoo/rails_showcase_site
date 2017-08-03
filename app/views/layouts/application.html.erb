@@ -27,10 +27,12 @@
         </div>
       </nav>
     </div>
-    <blockquote >
-      <%= flash[:notice] %>
-      <%= flash[:alert] %>
-    </blockquote>
-    <%= yield %>
+    <div class="container">
+      <blockquote >
+        <%= flash[:notice] %>
+        <%= flash[:alert] %>
+      </blockquote>
+      <%= yield %>
+    </div>
   </body>
 </html>
