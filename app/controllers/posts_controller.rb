@@ -25,6 +25,7 @@ class PostsController < ApplicationController
   end
   def show
     @post = Post.find(params[:id])
+    @post.increment! :views
   end
   def edit
     @post = Post.find(params[:id])
@@ -44,13 +45,16 @@ class PostsController < ApplicationController
     flash[:notice]= "Post Deleted Succesfully!"
     redirect_to posts_path
   end
-  # def upvote
-  #   @post = Post.find(params[:post])
-  #   if @post.increment! :votes
-  #     flash[:notice]="Post Upvoted!"
-  #   end
-  #   redirect_to post_path(@post)
-  # end
+  def rate
+    @post = Post.find(params[:post])
+    rating = params[:rating]
+    count = @post.rating_count
+    avg = @post.rating
+    new_avg = ((count*avg)+rating)/(count+1)
+    @post.increment! :rating_count
+    @post.update(rating:new_avg)
+    redirect_to post_path(@post)
+  end
 
   private
   def post_params
